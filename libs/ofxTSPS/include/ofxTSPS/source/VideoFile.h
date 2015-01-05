@@ -23,6 +23,7 @@ namespace ofxTSPS {
             tspsHeight = height;
             customData = etc;
             bIsOpen = loadMovie( customData );
+            setLoopState(OF_LOOP_NORMAL);
             if ( bIsOpen ){
                 play();
             }
