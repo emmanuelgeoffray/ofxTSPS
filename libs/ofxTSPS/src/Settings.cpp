@@ -32,6 +32,14 @@ namespace ofxTSPS {
         bLearnBackgroundProgressive = true;
         bAdjustedViewInColor        = false;		
         trackType = TRACK_LIGHT;
+
+        bChromaKey = false;
+        red_l = 0;
+        red_h = 40;
+        green_l = 80;
+        green_h = 255;
+        blue_l = 0;
+        blue_h = 40;
         
         threshold = 80;
         highpassBlur = 0;

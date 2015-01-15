@@ -76,6 +76,14 @@ namespace ofxTSPS {
         
         bool    bAdjustedViewInColor;	
         
+        bool    bChromaKey;
+        float   red_l;
+        float   red_h;
+        float   green_l;
+        float   green_h;
+        float   blue_l;
+        float   blue_h;
+
         // tracking vars
         bool    bLearnBackgroundProgressive;
         float   fLearnRate;

@@ -303,6 +303,18 @@ namespace ofxTSPS {
         panel.addToggle("progressive background recapture", "RELEARN", false);
         panel.addSlider("recapture rate :", "RELEARN_BACKGROUND", .1f, 0.0f, 1000.0f, false);
         
+        guiTypeGroup * chromaGroup = panel.addGroup("chroma key");
+        chromaGroup->setBackgroundColor(148,129,85);
+        chromaGroup->setBackgroundSelectColor(148,129,85);
+        chromaGroup->seBaseColor(180,87,128);
+        chromaGroup->setShowText(false);
+        panel.addToggle("chroma key", "CHROMAKEY", false);
+        panel.addSlider("red low :", "RED_L", 10.0f, 0.0f, 255.0f, false);
+        panel.addSlider("red high :", "RED_H", 40.0f, 0.0f, 255.0f, false);
+        panel.addSlider("green low :", "GREEN_L", 70.0f, 0.0f, 255.0f, false);
+        panel.addSlider("green high :", "GREEN_H", 255.0f, 0.0f, 255.0f, false);
+        panel.addSlider("blue low :", "BLUE_L", 10.0f, 0.0f, 255.0f, false);
+        panel.addSlider("blue high :", "BLUE_H", 40.0f, 0.0f, 255.0f, false);
         //differencing settings
         
         panel.setWhichPanel("differencing");
@@ -940,6 +952,15 @@ namespace ofxTSPS {
         settings.bLearnBackgroundProgressive = panel.getValueB("RELEARN");
         settings.fLearnRate = panel.getValueF("RELEARN_BACKGROUND");
         panel.setGroupActive("background", "background relearn", settings.bLearnBackgroundProgressive);
+
+        settings.bChromaKey = panel.getValueB("CHROMAKEY");
+        settings.red_l = panel.getValueF("RED_L");
+        settings.red_h = panel.getValueF("RED_H");
+        settings.green_l = panel.getValueF("GREEN_L");
+        settings.green_h = panel.getValueF("GREEN_H");
+        settings.blue_l = panel.getValueF("BLUE_L");
+        settings.blue_h = panel.getValueF("BLUE_H");
+        panel.setGroupActive("background", "chromakey", settings.bChromaKey);
         
         settings.bFindHoles = !(panel.getValueB("FIND_HOLES"));
         settings.bTrackOpticalFlow = panel.getValueB("SENSE_OPTICAL_FLOW");

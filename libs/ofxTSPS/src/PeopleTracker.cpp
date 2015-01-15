@@ -222,13 +222,28 @@ namespace ofxTSPS {
                 if ( currentSource->getPixelsRef().getWidth() != width || currentSource->getPixelsRef().getHeight() != height ){
                     ofImage tempImage;
                     tempImage.setFromPixels( currentSource->getPixelsRef() );
-                    ofImage tempImage2;
-                    tempImage2.setFromPixels( currentSource->getPixelsRef() );
-                    chromakey(tempImage,tempImage2);
-                    ofxCv::convertColor( tempImage2, tempImage, currentType == OF_IMAGE_COLOR_ALPHA ? CV_RGB2GRAY : CV_RGBA2GRAY);
+                    if (p_Settings->bChromaKey){
+                      ofImage tempImage2;
+                      tempImage2.setFromPixels( currentSource->getPixelsRef() );
+                      chromakey(tempImage,tempImage2);
+                      ofxCv::convertColor( tempImage2, tempImage, currentType == OF_IMAGE_COLOR_ALPHA ? CV_RGB2GRAY : CV_RGBA2GRAY);
+                    }
+                    else{
+                      ofxCv::convertColor(  currentSource->getPixelsRef(), tempImage, currentType == OF_IMAGE_COLOR_ALPHA ? CV_RGB2GRAY : CV_RGBA2GRAY);
+                    }
                     ofxCv::resize(tempImage, cameraImage);
                 } else {
-                    ofxCv::convertColor( currentSource->getPixelsRef(), cameraImage, CV_RGB2GRAY);
+                    if (p_Settings->bChromaKey){
+                      ofImage tempImage;
+                      tempImage.setFromPixels( currentSource->getPixelsRef() );
+                      ofImage tempImage2;
+                      tempImage2.setFromPixels( currentSource->getPixelsRef() );
+                      chromakey(tempImage,tempImage2);
+                      ofxCv::convertColor( tempImage2, tempImage, currentType == OF_IMAGE_COLOR_ALPHA ? CV_RGB2GRAY : CV_RGBA2GRAY);
+                    }
+                    else {
+                      ofxCv::convertColor( currentSource->getPixelsRef(), cameraImage, CV_RGB2GRAY);
+                    }
                 }
                 cameraImage.update();
             } else {
@@ -270,13 +285,12 @@ namespace ofxTSPS {
     }
     
     void PeopleTracker::chromakey(ofImage& src, ofImage& dst) {
-      unsigned char red_l = 0;
-      unsigned char red_h = 150;
-      unsigned char green_l = 70;
-      unsigned char green_h = 255;
-      unsigned char blue_l = 0;
-      unsigned char blue_h = 150;
-
+      unsigned char red_l = (unsigned char)  p_Settings->red_l ;
+      unsigned char red_h = (unsigned char)  p_Settings->red_h;
+      unsigned char green_l = (unsigned char)  p_Settings->green_l ;
+      unsigned char green_h = (unsigned char)  p_Settings->green_h;
+      unsigned char blue_l = (unsigned char)  p_Settings->blue_l ;
+      unsigned char blue_h = (unsigned char)  p_Settings->blue_h;
       // Create the destination matrix
       cv::Mat srcMat = ofxCv::toCv(src);
       cv::Mat dstMat = ofxCv::toCv(dst);
