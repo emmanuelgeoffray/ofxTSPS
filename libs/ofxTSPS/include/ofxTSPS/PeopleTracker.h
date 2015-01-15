@@ -89,6 +89,7 @@ namespace ofxTSPS {
                                                                                  // if nothing passsed. If settings is left blank, try
                                                                                  // to last loaded settings (found in defaults.xml)
         
+            void chromakey(ofImage& src, ofImage& dst) ;
             void update();                              // update + have TSPS manage source
             void update(ofBaseImage & image);           // update with an image / video / etc?
         

@@ -14,6 +14,7 @@
 namespace ofxTSPS {
     class VideoGrabber : public Source, public ofVideoGrabber {
     public:
+        int imgnb;
         
         VideoGrabber(){
             bCanTrackSkeleton = false;
@@ -33,6 +34,15 @@ namespace ofxTSPS {
         
         void update(){
             ofVideoGrabber::update();
+
+            //hackito
+            /*
+            imgnb++;
+            ofPixels mypixels = getPixelsRef();
+            mypixels.resize(640,480);
+            ofSaveImage(mypixels,"snaps/snap"+ ofToString(imgnb)+".jpg");
+            */
+
 #ifdef TARGET_OSX
             if ( bPublishTexture ){
                 publishToSyphon( ofVideoGrabber::getTextureReference() );

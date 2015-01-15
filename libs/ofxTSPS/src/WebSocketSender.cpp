@@ -95,7 +95,10 @@ namespace ofxTSPS {
     void WebSocketSender::send(){
         for (int i=0; i<toSend.size(); i++){
             for (int j=0; j<sockets.size(); j++){
-                if ( bServerSetup && server != NULL ) sockets[j]->send(toSend[i].msg); 
+                if ( bServerSetup && server != NULL ){
+                  sockets[j]->send(toSend[i].msg); 
+                  ofLogNotice("Websocket message sent:" + toSend[i].msg);
+                }
             }
             if ( bClientSetup && client != NULL ){
                 client->send( toSend[i].msg );
@@ -175,7 +178,7 @@ namespace ofxTSPS {
     
     //--------------------------------------------------------------
     void WebSocketSender::sceneUpdated( Scene & s ){
-        toSend.push_back(WebSocketMessage(s.getJSONMessge()));
+        //toSend.push_back(WebSocketMessage(s.getJSONMessge()));
     }
     
     //---------------------------------------------------------------------------

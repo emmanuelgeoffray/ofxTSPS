@@ -220,8 +220,10 @@ namespace ofxTSPS {
         
         stringstream message;
         message<<"{";
+        //message<<"\"type\":\""<<type<<"\"";
         message<<"\"type\":\""<<type<<"\",";
         message<<"\"id\":"<<pid<<",";
+        /*
         message<<"\"age\":"<<age<<",";
         message<<"\"depth\":"<<depth<<",";
         ofPoint normalizedCentroid = getCentroidNormalized( cameraWidth, cameraHeight );
@@ -235,19 +237,20 @@ namespace ofxTSPS {
         ofRectangle scaledHaar = getHaarRectNormalized(cameraWidth,cameraHeight);
         message<<"\"haarrect\":{"<<"\"x\":"<<scaledHaar.x<<",\"y\":"<<scaledHaar.y<<",\"width\":"<<scaledHaar.width<<",\"height\":"<<scaledHaar.height<<"},";
         message<<"\"highest\":{"<<"\"x\":"<<( (float) highest.x / cameraWidth )<<",\"y\":"<<( (float) highest.y / cameraHeight)<<"}";
-        
+        */
         // TO-DO: Normalize these!!!
         
-        if (bSendContours){
-            message<<",";
+        if (bSendContours && simpleContour.size() > 0 && simpleContour[0].x <1){
+            //message<<",";
             message<<"\"contours\":[";
-            for (int i=0; i<simpleContour.size(); i++){
+            int size = min(simpleContour.size(), (unsigned long int)300); 
+            for (int i=0; i< size; i++){
                 message<<"{\"x\":"<<ofToString(simpleContour[i].x, 3)<<",\"y\":"<<ofToString(simpleContour[i].y, 3)<<"}";
-                if (i+1 < simpleContour.size()) message<<",";
+                if (i+1 < size) message<<",";
             };
             message<<"]";
         }
-        message<<append; // trusting you to make good decisions here!
+        //message<<append; // trusting you to make good decisions here!
         message<<"}";
         return message.str();
     }
