@@ -81,6 +81,7 @@ namespace ofxTSPS {
             //bIsOpen = loadMovie( customData );
             bIsOpen = true;
             setURI("http://127.0.0.1:8080/?action=stream");
+            setMaxReconnects(ULONG_MAX);
             connect(); // connect immediately
             ofLogNotice("connect");
             return bIsOpen;
