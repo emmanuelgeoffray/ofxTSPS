@@ -164,6 +164,16 @@ namespace ofxTSPS {
         gui.setOpticalFlowEnabled( tspsProcessor->canTrackOpticalFlow() );
         
         defaults.popTag();
+
+        // Initialize HTTP video server
+        // TODO: toggle `isVideoServer` in GUI
+        isVideoServer = true;
+        if(isVideoServer == true){
+          ofx::HTTP::BasicIPVideoServerSettings videoServerSettings;
+          videoServerSettings.setPort(1337);
+          videoServer = ofx::HTTP::BasicIPVideoServer::makeShared(videoServerSettings);
+          videoServer->start();
+        }
     }
     
     //---------------------------------------------------------------------------
@@ -981,6 +991,11 @@ namespace ofxTSPS {
         // Track
         //-----------------------	
         differencedImage.setFromPixels( tspsProcessor->process( grayDiff ) );
+
+        // Stream differenced image over HTTP
+        if(isVideoServer){
+          videoServer->send(differencedImage.getPixelsRef());
+        }
     }
     
     //---------------------------------------------------------------------------

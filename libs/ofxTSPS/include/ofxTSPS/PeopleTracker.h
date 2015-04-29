@@ -72,6 +72,7 @@
 #include "ofxTSPS/communication/TCPSender.h"
 #include "ofxTSPS/communication/TUIOSender.h"
 #include "ofxTSPS/communication/WebSocketSender.h"
+#include "ofxHTTP.h"
 
 namespace ofxTSPS {
 
@@ -284,6 +285,9 @@ namespace ofxTSPS {
             bool bWebSocketServerEnabled, bWebSocketClientEnabled;
             SpacebrewSender spacebrewSender;
             bool bSpacebrewEnabled;
+
+            ofx::HTTP::BasicIPVideoServer::SharedPtr videoServer;
+            bool isVideoServer;
         
             //gui
 
